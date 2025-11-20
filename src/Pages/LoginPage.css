@@ -6,7 +6,7 @@
 .login-container {
     max-width: 400px;
     margin: 5rem auto;
-    padding: 3rem 2rem; /* increased padding to make the form taller */
+    padding: 3rem 2rem;
     background: white;
     border-radius: 15px;
     box-shadow: 0 5px 20px rgba(0,0,0,0.1);
@@ -14,14 +14,14 @@
 }
 
 .login-container h2 {
-    margin-bottom: 2.5rem; /* extra spacing for longer form */
+    margin-bottom: 2.5rem; 
     color: #2c3e50;
 }
 
 .login-form {
     display: flex;
     flex-direction: column;
-    gap: 1.5rem; /* increased spacing between fields */
+    gap: 1.5rem; 
 }
 
 .login-form label {
@@ -31,7 +31,7 @@
 }
 
 .login-form input {
-    padding: 1rem; /* taller inputs */
+    padding: 1rem;
     border: 1px solid #ccc;
     border-radius: 8px;
     font-size: 16px;
