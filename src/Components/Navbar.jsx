@@ -1,8 +1,15 @@
 import React from 'react';
 import Logo from '../Assets/Logo.png';
 import './Navbar.css';
+import { useNavigate, Link} from 'react-router-dom';
 
 const Navbar = () => {
+  const navigate = useNavigate();
+
+  const handleBookNow = () => {
+    navigate('/login');
+  }
+
   return (
     <nav className="navbar">
       <div className="logo">
@@ -14,13 +21,13 @@ const Navbar = () => {
       </div>
 
       <ul className="nav-links">
-        <li><a href="#home">Home</a></li>
-        <li><a href="#about">About Us</a></li>
-        <li><a href="#testimonials">Testimonials</a></li>
-        <li><a href="#contact">Contact Us</a></li>
+        <li><Link to="/">Home</Link></li>
+        <li><Link to="/about">About Us</Link></li>
+        <li><Link to="/testimonials">Testimonials</Link></li>
+        <li><Link to="/contact">Contact Us</Link></li>
       </ul>
 
-      <button className="book-btn">Book Now</button>
+      <button className="book-btn" onClick={handleBookNow}>Book Now</button>
     </nav>
   );
 };    
