@@ -5,7 +5,7 @@ import Navbar from '../Components/Navbar';
 import HeroSection from '../Components/HeroSection';
 import SearchSection from '../Components/SearchSection';
 
-const Landing_Page = () => {
+const LandingPage = () => {
   const [activeTab, setActiveTab] = useState('Hotel');
   const [formData, setFormData] = useState({
     location: '',
@@ -45,4 +45,4 @@ const Landing_Page = () => {
   );
 };
 
-export default Landing_Page;
+export default LandingPage;

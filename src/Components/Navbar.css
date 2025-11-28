@@ -44,9 +44,90 @@
     font-weight: 600;
     cursor: pointer;
     font-size: 16px;
-    transition: background 0.3s;
+    /*transition: background 0.3s; */
 }
 
 .book-btn:hover {
     background: #2980b9;
+}
+
+/* Import Montserrat font Register Navbar.css start */ 
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 40px;
+  background-color: #ffffff;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  font-family: 'Montserrat', sans-serif;
+}
+
+/* Logo image */
+.navbar .logo img {
+  width: 120px;
+  height: 130px;
+  object-fit: contain;
+}
+
+/* Navigation links container */
+.navbar .nav-links {
+  display: flex;
+  gap: 30px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* Navbar links styled as buttons */
+.nav-links li {
+  display: inline-block;
+}
+
+.nav-links li .nav-link {
+  text-decoration: none;
+  color: #484848;
+  padding: 8px 15px;
+  border-radius: 5px;
+  font-weight: 700; /* bold */
+}
+
+.nav-links li .nav-link:hover {
+  background-color: #80858d;
+  color: white;
+}
+
+/* Book Now button */
+.navbar .book-btn {
+    background: #3498db;
+    color: white;
+    border: none;
+    padding: 1rem 2.5rem;
+    border-radius: 25px;
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.navbar .book-btn:hover {
+  background-color: #0b5ed7;
+}
+
+/* Responsive Navbar */
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    gap: 15px;
+  }
+  .nav-links {
+  display: flex;
+  gap: 30px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  }
 }
