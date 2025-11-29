@@ -3,46 +3,37 @@ import '../Pages/LandingPage.css';
 
 import Navbar from '../Components/Navbar';
 import HeroSection from '../Components/HeroSection';
-import SearchSection from '../Components/SearchSection';
+import AboutSection from '../Components/AboutSection';
+import ContactSection from '../Components/ContactSection';
+import TestimonialsSection from '../Components/TestimonialsSection';
 
-const LandingPage = () => {
-  const [activeTab, setActiveTab] = useState('Hotel');
-  const [formData, setFormData] = useState({
-    location: '',
-    checkIn: '',
-    checkOut: '',
-    petCount: ''
-  });
-
-  const handleInputChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log('Form submitted:', formData);
-  };
-
+const Landing_Page = () => {
   return (
     <div className="landing-page">
       <Navbar />
 
-      <main className="hero-section">
-        <HeroSection />
+      <main>
 
-        <SearchSection 
-          activeTab={activeTab}
-          setActiveTab={setActiveTab}
-          formData={formData}
-          handleInputChange={handleInputChange}
-          handleSubmit={handleSubmit}
-        />
+        <div id="home" className="section-container hero">
+          <HeroSection />
+        </div>
+
+        <div id="about" className="section-container">
+          <AboutSection />
+        </div>
+
+        <div id="testimonials" className="section-container">
+          <TestimonialsSection />
+        </div>
+
+        <div id="contact" className="section-container">
+          <ContactSection />
+        </div>
+
       </main>
     </div>
   );
 };
 
-export default LandingPage;
+
+export default Landing_Page;

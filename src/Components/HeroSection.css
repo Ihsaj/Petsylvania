@@ -1,20 +1,29 @@
-.hero-content {
+.hero-section {
+    display: flex;
+    justify-content: center;
+    padding: 2rem 2rem;
+}
+
+.hero-container {
     display: flex;
     align-items: center;
-    margin-bottom: 3rem;
+    justify-content: center;
+    max-width: 1400px;
+    width: 100%;
+    gap: 2rem;
 }
 
 .hero-text {
-    max-width: 600px;
+    max-width: 900px;
+    text-align: left;
 }
 
 .hero-title {
-    font-size: 4rem;
+    font-size: 5rem;
     color: #2c3e50;
     line-height: 1.2;
     margin-bottom: 1.5rem;
     font-weight: 700;
-    max-width: 600px;
 }
 
 .highlight {
@@ -23,35 +32,12 @@
 
 .hero-description {
     color: #5a6c7d;
-    font-size: 2rem;
+    font-size: 1.8rem;
     line-height: 1.5;
-    margin-bottom: 2rem;
 }
 
-.app-buttons {
-    display: flex;
-    gap: 2rem;
-}
-
-.store-badge {
-    height: 50px;
-    cursor: pointer;
-    transition: transform 0.3s;
-}
-
-.store-badge:hover {
-    transform: translateY(-5px);
-}
-
-.hero-image {
-    flex: 1;
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-}
-
-.pet-image {
-    max-width: 500px;
+.hero-image img {
+    max-width: 550px;
     height: auto;
-    border-radius: 20px;
+    border-radius: 30px;
 }

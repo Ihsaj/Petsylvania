@@ -1,0 +1,43 @@
+.section-container {
+    padding: 2rem 1rem;
+}
+
+.section-box {
+    max-width: 900px;
+    margin: 0 auto;
+    background: #fff;
+    padding: 2.5rem 3rem;
+    border-radius: 20px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+}
+
+.section-box h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    color: #2c3e50;
+    margin-bottom: 2rem;
+}
+
+.testimonial-list {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.testimonial-card {
+    background: #eaf4ff;
+    padding: 1.5rem 2rem;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+}
+
+.testimonial-card p {
+    font-size: 1.2rem;
+    color: #34495e;
+}
+
+.testimonial-card h4 {
+    margin-top: 1rem;
+    color: #3498db;
+    font-weight: bold;
+}
