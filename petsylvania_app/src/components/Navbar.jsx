@@ -1,38 +1,35 @@
-import styled from "styled-components";
-import logo from "../assets/Logo.png";
+import React from 'react';
+import Logo from '../Assets/Logo.png';
+import './Navbar.css';
+import { useNavigate, Link} from 'react-router-dom';
 
-const Nav = styled.nav`
-  width: 100%;
-  height: 70px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 28px;
-  background: #ffffff;
-  box-shadow: ${({ theme }) => theme.shadow};
-  position: sticky;
-  top: 0;
-  z-index: 100;
-`;
+const Navbar = () => {
+  const navigate = useNavigate();
 
-const Logo = styled.img`
-  height: 52px;
-  width: auto;
-`;
+  const handleBookNow = () => {
+    navigate('/login');
+  }
 
-const Right = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 16px;
-`;
-
-export default function Navbar() {
   return (
-    <Nav>
-      <Logo src={logo} alt="Petsylvania Logo" />
-      <Right>
-        <span>Office Manager</span>
-      </Right>
-    </Nav>
+    <nav className="navbar">
+      <div className="logo">
+        <img 
+          src={Logo}
+          alt="Petsylvania Logo"
+          className="logo-img"
+        />
+      </div>
+
+      <ul className="nav-links">
+        <li><Link to="/">Home</Link></li>
+        <li><Link to="/about">About Us</Link></li>
+        <li><Link to="/testimonials">Testimonials</Link></li>
+        <li><Link to="/contact">Contact Us</Link></li>
+      </ul>
+
+      <button className="book-btn" onClick={handleBookNow}>Book Now</button>
+    </nav>
   );
-}
+};    
+
+export default Navbar;
