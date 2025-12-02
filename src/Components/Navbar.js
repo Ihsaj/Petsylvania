@@ -1,13 +1,20 @@
 import React from 'react';
 import Logo from '../Assets/Logo.png';
 import './Navbar.css';
-import { useNavigate, Link} from 'react-router-dom';
+import { useNavigate, Link, useLocation } from 'react-router-dom';
 
 const Navbar = () => {
   const navigate = useNavigate();
+  const location = useLocation();
 
   const handleBookNow = () => {
-    navigate('/login');
+    if (location.pathname === "/") {
+      navigate('/login');
+    } else if (location.pathname === "/dashboard") {
+      navigate('/room-service');
+    } else {
+      navigate('/login');
+    }
   }
 
   return (
