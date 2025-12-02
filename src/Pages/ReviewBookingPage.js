@@ -2,18 +2,19 @@ import React from 'react';
 import '../Pages/LandingPage.css';
 
 import Navbar from '../Components/Navbar';
-import AboutSection from '../Components/AboutSection';
 
-const AboutUsPage = () => {
+const ReviewBookingPage = () => {
   return (
     <div className="landing-page">
       <Navbar />
 
       <main>
-        <AboutSection />
+        <div id="about" className="section-container">
+          
+        </div>
       </main>
     </div>
   );
 };
 
-export default AboutUsPage;
+export default ReviewBookingPage;

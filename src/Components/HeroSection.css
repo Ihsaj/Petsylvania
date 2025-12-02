@@ -1,7 +1,7 @@
 .hero-section {
     display: flex;
     justify-content: center;
-    padding: 2rem 2rem;
+    padding: 2rem;
 }
 
 .hero-container {
@@ -10,7 +10,7 @@
     justify-content: center;
     max-width: 1400px;
     width: 100%;
-    gap: 2rem;
+    gap: 5rem;
 }
 
 .hero-text {
@@ -31,13 +31,13 @@
 }
 
 .hero-description {
-    color: #5a6c7d;
+    color: #5a6c7d; 
     font-size: 1.8rem;
     line-height: 1.5;
 }
 
 .hero-image img {
-    max-width: 550px;
+    max-width: 600px;
     height: auto;
     border-radius: 30px;
 }

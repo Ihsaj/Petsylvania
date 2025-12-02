@@ -3,8 +3,8 @@ import "./ContactSection.css";
 
 const ContactSection = () => {
   return (
-    <section className="section-container">
-      <div className="section-box">
+    <section className="section-container contact-section"> 
+      <div className="section-box contact-box">
         <h2>Contact Us</h2>
         <p>Facebook: <b>Petsylvania</b></p>
         <p>Email: <b>petsylvania@gmail.com</b></p>
