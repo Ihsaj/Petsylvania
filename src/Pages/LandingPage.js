@@ -1,4 +1,3 @@
-import React, { useState } from 'react';
 import '../Pages/LandingPage.css';
 
 import Navbar from '../Components/Navbar';
