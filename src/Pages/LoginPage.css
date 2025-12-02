@@ -46,7 +46,7 @@
     font-weight: 600;
     cursor: pointer;
     font-size: 16px;
-    transition: background 0.3s;
+    /*transition: background 0.3s; */
 }
 
 .login-btn:hover {

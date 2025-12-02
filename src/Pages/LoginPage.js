@@ -1,8 +1,7 @@
-import react, { useState } from 'react';
+import React, { useState } from 'react';
 import '../Pages/LoginPage.css';
-
 import Navbar from '../Components/Navbar';
-import { useNavigate } from 'react-router-dom';  
+import { useNavigate } from 'react-router-dom';
 
 const LoginPage = () => {
   const [email, setEmail] = useState('');
@@ -12,8 +11,11 @@ const LoginPage = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log('Login attempt:', { email, password });
+    navigate('/'); // after login, goes to landing page
+  };
 
-    navigate('/');
+  const goToRegister = () => {
+    navigate('/register'); // navigate to register page
   };
 
   return (
@@ -49,9 +51,14 @@ const LoginPage = () => {
 
           <div className="login-links">
             <button type="button" className="link-btn">Forgot Password?</button>
-            <button type="button" className="link-btn">Register Here</button>
+            <button
+              type="button"
+              className="link-btn"
+              onClick={goToRegister} // <-- this line added
+            >
+              Register Here
+            </button>
           </div>
-
         </form>
       </div>
     </div>
