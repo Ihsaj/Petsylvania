@@ -7,6 +7,7 @@ import TestimonialsPage from './Pages/TestimonialsPage';
 import ContactUsPage from './Pages/ContactUsPage';
 import Register from './Pages/Register'; 
 import DashboardPage from './Pages/DashboardPage';
+import ReviewBookingPage from './Pages/ReviewBookingPage';
 
 function AppRoutes() {
   return (
@@ -19,6 +20,7 @@ function AppRoutes() {
         <Route path="/contact" element={<ContactUsPage />} />
         <Route path="/register" element={<Register />} />  
         <Route path="/dashboard" element={<DashboardPage />} />
+        <Route path="/review-booking" element={<ReviewBookingPage />} />
       </Routes>
     </Router>
   );

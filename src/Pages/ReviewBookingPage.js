@@ -9,9 +9,7 @@ const ReviewBookingPage = () => {
       <Navbar />
 
       <main>
-        <div id="about" className="section-container">
-          
-        </div>
+        
       </main>
     </div>
   );

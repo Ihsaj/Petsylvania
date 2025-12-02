@@ -2,7 +2,7 @@ import '../Pages/LandingPage.css';
 
 import Navbar from '../Components/Navbar';
 
-const Dashboard_Page = () => {
+const DashboardPage = () => {
   return (
     <div className="landing-page">
       <Navbar />
@@ -15,4 +15,4 @@ const Dashboard_Page = () => {
 };
 
 
-export default Dashboard_Page;
+export default DashboardPage;

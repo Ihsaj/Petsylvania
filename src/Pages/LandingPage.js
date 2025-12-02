@@ -6,7 +6,7 @@ import AboutSection from '../Components/AboutSection';
 import ContactSection from '../Components/ContactSection';
 import TestimonialsSection from '../Components/TestimonialsSection';
 
-const Landing_Page = () => {
+const LandingPage = () => {
   return (
     <div className="landing-page">
       <Navbar />
@@ -35,4 +35,4 @@ const Landing_Page = () => {
 };
 
 
-export default Landing_Page;
+export default LandingPage;
