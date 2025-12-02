@@ -1,18 +1,25 @@
-import '../Pages/LandingPage.css';
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Navbar from './components/Navbar';
+import Hero from './components/Hero';
+import './App.css';
 
-import Navbar from '../Components/Navbar';
-
-const Dashboard_Page = () => {
+function App() {
   return (
-    <div className="landing-page">
-      <Navbar />
-      <main>
-        <h2>Ari pag code sa dashboard</h2>
-
-      </main>
-    </div>
+    <Router>
+      <div className="App">
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<Hero />} />
+          {/* Add your other routes here */}
+          {/* <Route path="/about" element={<About />} /> */}
+          {/* <Route path="/testimonials" element={<Testimonials />} /> */}
+          {/* <Route path="/contact" element={<Contact />} /> */}
+          {/* <Route path="/login" element={<Login />} /> */}
+        </Routes>
+      </div>
+    </Router>
   );
-};
+}
 
-
-export default Dashboard_Page;
+export default App;
