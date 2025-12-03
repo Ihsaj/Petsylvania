@@ -13,7 +13,7 @@ const LoginPage = () => {
     e.preventDefault();
     console.log('Login attempt:', { email, password });
 
-    navigate('/');
+    navigate('/dashboard');
   };
 
   const goToRegister = () => {

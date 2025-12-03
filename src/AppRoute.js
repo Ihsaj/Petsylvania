@@ -8,6 +8,7 @@ import ContactUsPage from './Pages/ContactUsPage';
 import Register from './Pages/Register'; 
 import DashboardPage from './Pages/DashboardPage';
 import ReviewBookingPage from './Pages/ReviewBookingPage';
+import MainLayout from './Pages/MainLayout';
 
 function AppRoutes() {
   return (
@@ -21,6 +22,7 @@ function AppRoutes() {
         <Route path="/register" element={<Register />} />  
         <Route path="/dashboard" element={<DashboardPage />} />
         <Route path="/review-booking" element={<ReviewBookingPage />} />
+        <Route path="/mainlayout-roomservices" element={<MainLayout />} />
       </Routes>
     </Router>
   );
