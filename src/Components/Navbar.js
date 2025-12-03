@@ -1,5 +1,6 @@
 import React from 'react';
 import Logo from '../Assets/Logo.png';
+import ProfileIcon from '../Assets/ProfileLogo.png';  
 import './Navbar.css';
 import { useNavigate, Link, useLocation } from 'react-router-dom';
 
@@ -7,15 +8,22 @@ const Navbar = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const handleBookNow = () => {
-    if (location.pathname === "/") {
-      navigate('/login');
-    } else if (location.pathname === "/dashboard") {
-      navigate('/room-service');
-    } else {
-      navigate('/login');
-    }
+const handleBookNow = () => {
+  switch (location.pathname) {
+    case "/":
+      navigate("/login");
+      break;
+
+    case "/dashboard":
+      navigate("/mainlayout-roomservices");
+      break;
+
+    default:
+      navigate("/login");
+      break;
   }
+};
+
 
   return (
     <nav className="navbar">
@@ -34,7 +42,16 @@ const Navbar = () => {
         <li><Link to="/contact">Contact Us</Link></li>
       </ul>
 
-      <button className="book-btn" onClick={handleBookNow}>Book Now</button>
+      <div className="nav-actions">
+        <button className="book-btn" onClick={handleBookNow}>Book Now</button>
+
+        <img 
+          src={ProfileIcon}
+          alt="Profile"
+          className="profile-icon"
+          onClick={() => navigate('/profile')}
+        />
+      </div>
     </nav>
   );
 };    

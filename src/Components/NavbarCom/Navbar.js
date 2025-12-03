@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';  
 import './Navbar.css';
 import logo from '../../Assets/Logo.png'; 
 
@@ -7,14 +8,15 @@ const Navbar = () => {
     <nav className="navbar">
       <div className="logo">
         <img src={logo} alt="Petsylvania Logo" />
-        {/* or just text: <div className="logo-text">PETSYLVANIA</div> */}
       </div>
+
       <ul className="nav-links">
-        <li><a href="#" className="nav-link">Home</a></li>
-        <li><a href="#" className="nav-link">About Us</a></li>
-        <li><a href="#" className="nav-link">Testimonials</a></li>
-        <li><a href="#" className="nav-link">Contact Us</a></li>
+        <li><Link to="/dashboard">Home</Link></li>
+        <li><Link to="/about">About Us</Link></li>
+        <li><Link to="/testimonials">Testimonials</Link></li>
+        <li><Link to="/contact">Contact Us</Link></li>
       </ul>
+
       <button className="book-btn">Book Now</button>
     </nav>
   );

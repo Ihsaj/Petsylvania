@@ -6,6 +6,7 @@ import Room from './RoomPage/Room';
 import Services from './ServicesPage/Services';
 import Date from './DatePage/Date';
 import Pets from './PetsPage/Pets';
+import { useNavigate } from 'react-router-dom';
 
 function MainLayout() {
   const [currentStep, setCurrentStep] = useState(0);
@@ -15,9 +16,19 @@ function MainLayout() {
   const [checkOut, setCheckOut] = useState('');
   const [pets, setPets] = useState([{ name: '', type: '', breed: '', age: '' }]);
 
+  const navigate = useNavigate();
+
   const steps = ['Room', 'Service', 'Date', 'Pets', 'Review'];
 
-  const handleNext = () => currentStep < steps.length - 1 && setCurrentStep(currentStep + 1);
+  const handleNext = () => {
+    if (currentStep === steps.length - 1) {
+      navigate('/review-booking');
+      return;
+    }
+
+    setCurrentStep(currentStep + 1);
+  };
+
   const handleBack = () => currentStep > 0 && setCurrentStep(currentStep - 1);
 
   const canProceed = () => {
