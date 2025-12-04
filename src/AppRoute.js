@@ -9,6 +9,8 @@ import Register from './Pages/Register';
 import DashboardPage from './Pages/DashboardPage';
 import ReviewBookingPage from './Pages/ReviewBookingPage';
 import MainLayout from './Pages/MainLayout';
+import ProfilePage from './Pages/ProfilePage';
+import PetProfilePage from './Pages/PetProfilePage';
 
 function AppRoutes() {
   return (
@@ -23,6 +25,8 @@ function AppRoutes() {
         <Route path="/dashboard" element={<DashboardPage />} />
         <Route path="/review-booking" element={<ReviewBookingPage />} />
         <Route path="/mainlayout-roomservices" element={<MainLayout />} />
+        <Route path="/profile" element={<ProfilePage />} />
+        <Route path="/petprofile" element={<PetProfilePage />} />
       </Routes>
     </Router>
   );

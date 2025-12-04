@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './MainLayout.css';
-import Navbar from '../Components/NavbarCom/Navbar';
+import Navbar from '../Components/Navbar';
 import StepIndicator from '../Components/StepIndicatorCom/StepIndicator';
 import Room from './RoomPage/Room';
 import Services from './ServicesPage/Services';

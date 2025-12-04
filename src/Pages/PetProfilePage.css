@@ -1,0 +1,18 @@
+.pet-profile-page {
+  min-height: 100vh;
+  background-color: #f5f5f5;
+}
+
+.pet-profile-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  display: flex;
+  gap: 2rem;
+}
+
+@media (max-width: 768px) {
+  .pet-profile-container {
+    flex-direction: column;
+  }
+}
