@@ -58,7 +58,6 @@ const Pets = ({ pets, setPets }) => {
                   <option value="">Select type</option>
                   <option value="dog">Dog</option>
                   <option value="cat">Cat</option>
-                  <option value="bird">Bird</option>
                   <option value="other">Other</option>
                 </select>
               </div>

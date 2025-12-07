@@ -4,8 +4,9 @@ import Navbar from '../Components/Navbar';
 import StepIndicator from '../Components/StepIndicatorCom/StepIndicator';
 import Room from './RoomPage/Room';
 import Services from './ServicesPage/Services';
-import Date from './DatePage/Date';
+import DateComponent from './DatePage/Date';
 import Pets from './PetsPage/Pets';
+import ReviewBooking from './ReviewBookingPage/ReviewBooking';
 import { useNavigate } from 'react-router-dom';
 
 function MainLayout() {
@@ -41,6 +42,35 @@ function MainLayout() {
     }
   };
 
+  const renderStep = () => {
+    switch (currentStep) {
+      case 0:
+        return <Room selectedRoom={selectedRoom} setSelectedRoom={setSelectedRoom} />;
+      case 1:
+        return <Services selectedServices={selectedServices} setSelectedServices={setSelectedServices} />;
+      case 2:
+        return <DateComponent checkIn={checkIn} setCheckIn={setCheckIn} checkOut={checkOut} setCheckOut={setCheckOut} />;
+      case 3:
+        return <Pets pets={pets} setPets={setPets} />;
+      case 4: 
+        return (
+          <ReviewBooking
+            selectedRoomId={selectedRoom}
+            selectedServiceIds={selectedServices}
+            checkInDate={checkIn}
+            checkOutDate={checkOut}
+            pets={pets}
+            customerName={"John Doe"}
+            customerEmail={"john.doe@example.com"}
+            customerContact={"0912 456 7890"}
+            customerAddress={"Cebu City"}
+          />
+        );
+      default:
+        return null;
+    }
+  };
+
   return (
     <div className="mainlayout">
       <Navbar />
@@ -48,14 +78,13 @@ function MainLayout() {
         <StepIndicator steps={steps} currentStep={currentStep} />
       </div>
 
-      {currentStep === 0 && <Room selectedRoom={selectedRoom} setSelectedRoom={setSelectedRoom} />}
-      {currentStep === 1 && <Services selectedServices={selectedServices} setSelectedServices={setSelectedServices} />}
-      {currentStep === 2 && <Date checkIn={checkIn} setCheckIn={setCheckIn} checkOut={checkOut} setCheckOut={setCheckOut} />}
-      {currentStep === 3 && <Pets pets={pets} setPets={setPets} />}
+      {renderStep()} 
 
       <div className="navigation-buttons">
         <button onClick={handleBack} className="nav-btn back-btn">Back</button>
-        <button onClick={handleNext} disabled={!canProceed()} className="nav-btn next-btn">Next</button>
+        <button onClick={handleNext} disabled={!canProceed()} className="nav-btn next-btn">
+          {currentStep === steps.length - 1 ? 'Confirm Booking' : 'Next'}
+        </button>
       </div>
     </div>
   );
