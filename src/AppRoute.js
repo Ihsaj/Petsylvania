@@ -7,10 +7,10 @@ import TestimonialsPage from './Pages/TestimonialsPage';
 import ContactUsPage from './Pages/ContactUsPage';
 import Register from './Pages/Register'; 
 import DashboardPage from './Pages/DashboardPage';
-import ReviewBookingPage from './Pages/ReviewBookingPage';
 import MainLayout from './Pages/MainLayout';
 import ProfilePage from './Pages/ProfilePage';
 import PetProfilePage from './Pages/PetProfilePage';
+import ConfirmationPage from './Pages/ConfirmationPage';
 
 function AppRoutes() {
   return (
@@ -22,11 +22,11 @@ function AppRoutes() {
         <Route path="/testimonials" element={<TestimonialsPage />} />
         <Route path="/contact" element={<ContactUsPage />} />
         <Route path="/register" element={<Register />} />  
-        <Route path="/dashboard" element={<DashboardPage />} />
-        <Route path="/review-booking" element={<ReviewBookingPage />} />
+        <Route path="/Dashboard" element={<DashboardPage />} />
         <Route path="/mainlayout-roomservices" element={<MainLayout />} />
         <Route path="/profile" element={<ProfilePage />} />
         <Route path="/petprofile" element={<PetProfilePage />} />
+        <Route path="/confirmation" element={<ConfirmationPage />} />
       </Routes>
     </Router>
   );

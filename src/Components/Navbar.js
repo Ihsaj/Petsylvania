@@ -1,6 +1,6 @@
 import React from 'react';
 import Logo from '../Assets/Logo.png';
-import ProfileIcon from '../Assets/ProfileLogo.png'; // import the profile icon
+import ProfileIcon from '../Assets/ProfileLogo.png'; 
 import './Navbar.css';
 import { useNavigate, Link, useLocation } from 'react-router-dom';
 
@@ -9,16 +9,26 @@ const Navbar = () => {
   const location = useLocation();
 
   const handleBookNow = () => {
-    switch (location.pathname) {
-      case "/":
-        navigate("/login");
-        break;
-      case "/dashboard":
-        navigate("/mainlayout-roomservices");
-        break;
-      default:
-        navigate("/login");
-        break;
+    // List all public pages where 'Book Now' should go to /login
+    const publicPages = [
+      "/", 
+      "/about", 
+      "/testimonials", 
+      "/contact"
+    ];
+
+    // Check if the current path is the dashboard
+    if (location.pathname === "/dashboard") {
+      navigate("/mainlayout-roomservices"); // DashboardPage -> MainLayout for booking
+    } 
+    // Check if the current path is one of the public pages
+    else if (publicPages.includes(location.pathname)) {
+      navigate("/login"); // Public Pages -> Login Page
+    } 
+    // Default behavior for other paths (e.g., /register, /login, or other pages)
+    else {
+      // You can keep a default redirect, which for safety, is often /login
+      navigate("/login");
     }
   };
 
@@ -30,6 +40,7 @@ const Navbar = () => {
   };
 
   return (
+    // ... (rest of the Navbar component JSX)
     <nav className="navbar">
       <div className="logo">
         <img 
@@ -47,6 +58,7 @@ const Navbar = () => {
       </ul>
 
       <div className="nav-actions">
+        {/* The updated logic will run on this button click */}
         <button className="book-btn" onClick={handleBookNow}>
           Book Now
         </button>

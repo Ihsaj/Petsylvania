@@ -1,0 +1,260 @@
+.review-booking-page {
+    max-width: 80rem;
+    margin: 0 auto;
+    padding: 3rem 2rem;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+.page-title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 0.5rem;
+    color: #1e40af; 
+}
+
+.page-subtitle {
+    text-align: center;
+    color: #4b5563;
+    margin-bottom: 3rem;
+    font-size: 1.1rem;
+}
+
+.review-content-grid {
+    display: grid;
+    grid-template-columns: 2.5fr 1fr; 
+    gap: 2rem;
+    align-items: flex-start; 
+}
+
+.review-details-left {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.review-section {
+    background-color: white;
+    border-radius: 1rem;
+    padding: 1.5rem;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    border: 1px solid #e5e7eb;
+}
+
+.review-section-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #1f2937;
+    margin-bottom: 1rem;
+}
+
+.customer-info-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem 2.5rem;
+}
+
+.info-label {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #6b7280;
+    margin-bottom: 0.1rem;
+    text-transform: uppercase;
+}
+
+.customer-info-grid p {
+    font-size: 1rem;
+    font-weight: 500;
+    color: #1f2937;
+}
+
+.review-grid {
+    display: flex;
+    gap: 1rem;
+    overflow-x: auto;
+    padding-bottom: 0.5rem; 
+}
+
+.review-card-item {
+    border-radius: 0.5rem;
+    padding: 0.75rem;
+    border: 1px solid #d1d5db;
+    background-color: #f9fafb;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.review-item-title {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #1f2937;
+    margin-top: 0.25rem;
+}
+
+.review-item-price, .review-item-details {
+    font-size: 0.8rem;
+    color: #6b7280;
+}
+
+.room-review-card {
+    min-width: 10rem;
+}
+.review-room-img {
+    width: 100%;
+    height: 5rem;
+    object-fit: cover;
+    border-radius: 0.25rem;
+    margin-bottom: 0.5rem;
+}
+
+.service-review-card {
+    min-width: 6.5rem;
+}
+.review-service-icon {
+    font-size: 2rem;
+    background-color: white;
+    border-radius: 50%;
+    width: 3.5rem;
+    height: 3.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 0.5rem;
+}
+
+.pet-review-card {
+    min-width: 7rem;
+}
+.review-pet-img {
+    width: 3.5rem;
+    height: 3.5rem;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-bottom: 0.5rem;
+    border: 1px solid #d1d5db;
+}
+
+.date-details-grid {
+    display: flex;
+    gap: 1rem;
+}
+
+.date-detail-box {
+    flex: 1;
+    background-color: white;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    border: 1px solid #d1d5db;
+    text-align: center;
+}
+
+.date-detail-box p {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #1f2937;
+}
+
+.review-summary-right {
+    position: relative;
+}
+
+.booking-summary-box {
+    background-color: white;
+    border: 2px solid #e5e7eb;
+    border-radius: 1rem;
+    padding: 1.5rem;
+    position: sticky; 
+    top: 2rem; 
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.summary-title {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #1f2937;
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.summary-details {
+    margin-bottom: 1.5rem;
+}
+
+.summary-line {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.4rem 0;
+    font-size: 0.95rem;
+    color: #374151;
+}
+
+.summary-line.total {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #1e40af;
+}
+
+.summary-divider {
+    border: 0;
+    height: 1px;
+    background: #e5e7eb;
+    margin: 0.5rem 0;
+}
+
+.confirm-btn {
+    width: 100%;
+    background-color: #2563eb;
+    color: white;
+    padding: 0.75rem 0;
+    border-radius: 0.5rem;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.cancel-btn {
+    width: 100%;
+    background-color: #f3f4f6;
+    color: #4b5563;
+    padding: 0.75rem 0;
+    border-radius: 0.5rem;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+.back-btn-review {
+    width: 100%;
+    background-color: transparent;
+    color: #4b5563;
+    padding: 0.75rem 0;
+    border-radius: 0.5rem;
+    border: 1px solid #d1d5db;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+@media (max-width: 1024px) {
+    .review-content-grid {
+        grid-template-columns: 1fr; 
+    }
+    .booking-summary-box {
+        position: static; 
+    }
+}
+@media (max-width: 640px) {
+    .customer-info-grid {
+        grid-template-columns: 1fr;
+    }
+    .date-details-grid {
+        flex-direction: column;
+    }
+}
