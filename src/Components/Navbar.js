@@ -9,38 +9,34 @@ const Navbar = () => {
   const location = useLocation();
 
   const handleBookNow = () => {
-    // List all public pages where 'Book Now' should go to /login
-    const publicPages = [
-      "/", 
-      "/about", 
-      "/testimonials", 
-      "/contact"
-    ];
-
-    // Check if the current path is the dashboard
+    const publicPages = ["/", "/about", "/testimonials", "/contact"];
     if (location.pathname === "/dashboard") {
-      navigate("/mainlayout-roomservices"); // DashboardPage -> MainLayout for booking
-    } 
-    // Check if the current path is one of the public pages
-    else if (publicPages.includes(location.pathname)) {
-      navigate("/login"); // Public Pages -> Login Page
-    } 
-    // Default behavior for other paths (e.g., /register, /login, or other pages)
-    else {
-      // You can keep a default redirect, which for safety, is often /login
+      navigate("/mainlayout-roomservices");
+    } else if (publicPages.includes(location.pathname)) {
+      navigate("/login");
+    } else {
       navigate("/login");
     }
   };
 
+  const handleLogout = () => {
+    // Navigate to landing page
+    navigate("/");
+  };
+
   const getHomePath = () => {
-    if (location.pathname.startsWith('/dashboard') || location.pathname.startsWith('/mainlayout') || location.pathname.startsWith('/profile') || location.pathname.startsWith('/petprofile')) {
+    if (
+      location.pathname.startsWith('/dashboard') || 
+      location.pathname.startsWith('/mainlayout') || 
+      location.pathname.startsWith('/profile') || 
+      location.pathname.startsWith('/petprofile')
+    ) {
       return '/dashboard';
     }
     return '/';
   };
 
   return (
-    // ... (rest of the Navbar component JSX)
     <nav className="navbar">
       <div className="logo">
         <img 
@@ -58,18 +54,25 @@ const Navbar = () => {
       </ul>
 
       <div className="nav-actions">
-        {/* The updated logic will run on this button click */}
         <button className="book-btn" onClick={handleBookNow}>
           Book Now
         </button>
 
         {location.pathname === '/dashboard' && (
-          <img
-            src={ProfileIcon}
-            alt="Profile"
-            className="dashboard-profile-icon"
-            onClick={() => navigate('/profile')}
-          />
+          <>
+            <img
+              src={ProfileIcon}
+              alt="Profile"
+              className="dashboard-profile-icon"
+              onClick={() => navigate('/profile')}
+            />
+            <button 
+              className="logout-btn"
+              onClick={handleLogout}
+            >
+              Logout
+            </button>
+          </>
         )}
       </div>
     </nav>
