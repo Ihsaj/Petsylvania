@@ -69,3 +69,20 @@
 .dashboard-profile-icon:hover {
   transform: scale(1.1);
 }
+.logout-btn {
+    background: #f44336; /* red */
+    color: white;
+    border: none;
+    padding: 1rem 2.5rem; /* same as book button */
+    border-radius: 25px;  /* same as book button */
+    font-weight: 600;     /* same as book button */
+    cursor: pointer;
+    font-size: 16px;      /* same as book button */
+    transition: background 0.3s, transform 0.2s;
+}
+
+.logout-btn:hover {
+    background: #d32f2f;  /* darker red on hover */
+    transform: scale(1.05);
+}
+

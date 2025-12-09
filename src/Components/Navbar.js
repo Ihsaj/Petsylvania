@@ -62,12 +62,20 @@ const Navbar = () => {
         </button>
 
         {location.pathname === '/dashboard' && (
-          <img
-            src={ProfileIcon}
-            alt="Profile"
-            className="dashboard-profile-icon"
-            onClick={() => navigate('/profile')}
-          />
+          <>
+            <img
+              src={ProfileIcon}
+              alt="Profile"
+              className="dashboard-profile-icon"
+              onClick={() => navigate('/profile')}
+            />
+            <button 
+              className="logout-btn"
+              onClick={handleLogout}
+            >
+              Logout
+            </button>
+          </>
         )}
       </div>
     </nav>
