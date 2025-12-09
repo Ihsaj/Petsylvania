@@ -135,12 +135,3 @@
     color: #6b7280;
     text-align: center;
 }
-
-@media (max-width: 600px) {
-    .confirmation-card {
-        padding: 2rem 1.5rem;
-    }
-    .confirmation-actions {
-        flex-direction: column;
-    }
-}

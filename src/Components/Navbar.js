@@ -5,36 +5,39 @@ import './Navbar.css';
 import { useNavigate, Link, useLocation } from 'react-router-dom';
 
 const Navbar = () => {
-  const navigate = useNavigate();
-  const location = useLocation();
+    const navigate = useNavigate();
+    const location = useLocation();
 
-  const handleBookNow = () => {
-    const publicPages = ["/", "/about", "/testimonials", "/contact"];
-    if (location.pathname === "/dashboard") {
-      navigate("/mainlayout-roomservices");
-    } else if (publicPages.includes(location.pathname)) {
-      navigate("/login");
-    } else {
-      navigate("/login");
-    }
-  };
+    const internalUserPaths = [
+        '/dashboard', 
+        '/mainlayout', 
+        '/reviewbooking', 
+        '/profile', 
+        '/petprofile',
+        '/confirmation'
+    ];
 
-  const handleLogout = () => {
-    // Navigate to landing page
-    navigate("/");
-  };
+    const handleBookNow = () => {
+        if (internalUserPaths.some(path => location.pathname.startsWith(path))) {
+            navigate("/mainlayout-roomservices");
+        }
+        else {
+            navigate("/login");
+        }
+    };
 
-  const getHomePath = () => {
-    if (
-      location.pathname.startsWith('/dashboard') || 
-      location.pathname.startsWith('/mainlayout') || 
-      location.pathname.startsWith('/profile') || 
-      location.pathname.startsWith('/petprofile')
-    ) {
-      return '/dashboard';
-    }
-    return '/';
-  };
+    const getHomePath = () => {
+        if (internalUserPaths.some(path => location.pathname.startsWith(path))) {
+            return '/dashboard'; 
+        }
+        return '/';
+    };
+
+    const handleProfileClick = () => {
+        navigate('/profile');
+    };
+
+    const showProfileIcon = internalUserPaths.some(path => location.pathname.startsWith(path));
 
   return (
     <nav className="navbar">
