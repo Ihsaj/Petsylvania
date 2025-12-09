@@ -29,11 +29,12 @@ const ReviewBooking = ({
     checkInDate, 
     checkOutDate, 
     pets = [],
-    customerName = "John Doe",
-    customerEmail = "johndoe@gmail.com",
-    customerContact = "0912 456 7890",
-    customerAddress = "Cebu City",
-    onBack
+    customerName,
+    customerEmail,
+    customerContact,
+    customerAddress,
+    onBack,
+    onConfirm
 }) => {
     const navigate = useNavigate();
     
@@ -55,9 +56,9 @@ const ReviewBooking = ({
         return date.toLocaleDateString('en-US', { month: '2-digit', day: '2-digit', year: 'numeric' });
     };
 
-    const handleConfirmBooking = () => {
-        navigate('/confirmation');
-    };
+    // const handleConfirmBooking = () => {
+    //     navigate('/confirmation');
+    // };
 
     const handleCancelBooking = () => {
         navigate('/dashboard'); 
@@ -182,14 +183,19 @@ const ReviewBooking = ({
                     <div className="booking-summary-box">
                         <h2 className="summary-title">Booking Summary</h2>
                         <div className="summary-details">
+
                             <div className="summary-line">
                                 <span>{roomToReview ? roomToReview.title : 'Room'} ({totalDurationInDays} day/s)</span>
                                 <span>₱{roomPrice * totalDurationInDays}</span>
                             </div>
+
+                            
+
                             <div className="summary-line">
                                 <span>{servicesToReview.length} Services</span>
                                 <span>₱{servicesTotal}</span>
                             </div>
+
                             <hr className="summary-divider"/>
                             <div className="summary-line total">
                                 <span>Total Price</span>
@@ -197,7 +203,7 @@ const ReviewBooking = ({
                             </div>
                         </div>
                         
-                        <button onClick={handleConfirmBooking} className="confirm-btn">
+                        <button onClick={onConfirm} className="confirm-btn">
                             Confirm Booking
                         </button>
                         <button onClick={handleCancelBooking} className="cancel-btn">

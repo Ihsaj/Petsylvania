@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './MainLayout.css';
 import Navbar from '../Components/Navbar';
 import StepIndicator from '../Components/StepIndicatorCom/StepIndicator';
@@ -9,7 +9,6 @@ import Pets from './PetsPage/Pets';
 import ReviewBooking from './ReviewBookingPage/ReviewBooking.js';
 import { useNavigate } from 'react-router-dom';
 
-const API_BASE_URL = "http://localhost:8080";
 
 const ALL_ROOMS = [
     { id: 1, title: 'Standard Suite', price: 500 },
@@ -32,8 +31,34 @@ function MainLayout() {
   const [checkOut, setCheckOut] = useState('');
   const [pets, setPets] = useState([{ name: '', type: '', breed: '', age: '' }]);
 
+  const [customerInfo, setCustomerInfo] = useState({
+        firstName: "Guest",
+        lastName: "User",
+        email: "guest.user@example.com",
+        contactNumber: "N/A",
+        address: "N/A"
+  });
+
   const navigate = useNavigate();
   const steps = ['Room', 'Service', 'Date', 'Pets', 'Review'];
+
+  useEffect(() => {
+        const storedUser = localStorage.getItem('user');
+        if (storedUser) {
+            try {
+                const user = JSON.parse(storedUser);
+                setCustomerInfo({
+                    firstName: user.firstName || "N/A",
+                    lastName: user.lastName || "N/A",
+                    email: user.email || "N/A",
+                    contactNumber: user.contactNumber || "N/A",
+                    address: user.address || "N/A"
+                });
+            } catch (e) {
+                console.error("Error parsing user data from localStorage:", e);
+            }
+        }
+  }, []);
 
   const handleNext = async () => {
     if (currentStep === steps.length - 1) {
@@ -55,7 +80,7 @@ function MainLayout() {
         checkOutDate: checkOut,
         room: roomDetails ? roomDetails.title : 'N/A',
         totalPrice: totalPrice,
-        customerName: "John Doe", 
+        customerName: `${customerInfo.firstName} ${customerInfo.lastName}`, 
         pets: pets.filter(p => p.name).map(p => `${p.name} (${p.type})`)
       };
 
@@ -90,6 +115,8 @@ function MainLayout() {
   };
 
   const renderStep = () => {
+    const fullName = `${customerInfo.firstName} ${customerInfo.lastName}`;
+
     switch (currentStep) {
       case 0: return <Room selectedRoom={selectedRoom} setSelectedRoom={setSelectedRoom} />;
       case 1: return <Services selectedServices={selectedServices} setSelectedServices={setSelectedServices} />;
@@ -102,11 +129,12 @@ function MainLayout() {
             checkInDate={checkIn}
             checkOutDate={checkOut}
             pets={pets}
-            customerName={"John Doe"}
-            customerEmail={"john.doe@example.com"}
-            customerContact={"0912 456 7890"}
-            customerAddress={"Cebu City"}
+            customerName={fullName}
+            customerEmail={customerInfo.email}
+            customerContact={customerInfo.contactNumber}
+            customerAddress={customerInfo.address}
             onBack={handleBack}
+            onConfirm={handleNext}
           />
         );
       default: return null;
