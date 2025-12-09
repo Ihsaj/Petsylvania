@@ -9,6 +9,8 @@ import Pets from './PetsPage/Pets';
 import ReviewBooking from './ReviewBookingPage/ReviewBooking.js';
 import { useNavigate } from 'react-router-dom';
 
+const API_BASE_URL = "http://localhost:8080";
+
 const ALL_ROOMS = [
     { id: 1, title: 'Standard Suite', price: 500 },
     { id: 2, title: 'Deluxe Suite', price: 1000 },
@@ -104,6 +106,7 @@ function MainLayout() {
             customerEmail={"john.doe@example.com"}
             customerContact={"0912 456 7890"}
             customerAddress={"Cebu City"}
+            onBack={handleBack}
           />
         );
       default: return null;

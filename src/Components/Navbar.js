@@ -5,42 +5,41 @@ import './Navbar.css';
 import { useNavigate, Link, useLocation } from 'react-router-dom';
 
 const Navbar = () => {
-  const navigate = useNavigate();
-  const location = useLocation();
+    const navigate = useNavigate();
+    const location = useLocation();
 
-  const handleBookNow = () => {
-    // List all public pages where 'Book Now' should go to /login
-    const publicPages = [
-      "/", 
-      "/about", 
-      "/testimonials", 
-      "/contact"
+    const internalUserPaths = [
+        '/dashboard', 
+        '/mainlayout', 
+        '/reviewbooking', 
+        '/profile', 
+        '/petprofile',
+        '/confirmation'
     ];
 
-    // Check if the current path is the dashboard
-    if (location.pathname === "/dashboard") {
-      navigate("/mainlayout-roomservices"); // DashboardPage -> MainLayout for booking
-    } 
-    // Check if the current path is one of the public pages
-    else if (publicPages.includes(location.pathname)) {
-      navigate("/login"); // Public Pages -> Login Page
-    } 
-    // Default behavior for other paths (e.g., /register, /login, or other pages)
-    else {
-      // You can keep a default redirect, which for safety, is often /login
-      navigate("/login");
-    }
-  };
+    const handleBookNow = () => {
+        if (internalUserPaths.some(path => location.pathname.startsWith(path))) {
+            navigate("/mainlayout-roomservices");
+        }
+        else {
+            navigate("/login");
+        }
+    };
 
-  const getHomePath = () => {
-    if (location.pathname.startsWith('/dashboard') || location.pathname.startsWith('/mainlayout') || location.pathname.startsWith('/profile') || location.pathname.startsWith('/petprofile')) {
-      return '/dashboard';
-    }
-    return '/';
-  };
+    const getHomePath = () => {
+        if (internalUserPaths.some(path => location.pathname.startsWith(path))) {
+            return '/dashboard'; 
+        }
+        return '/';
+    };
+
+    const handleProfileClick = () => {
+        navigate('/profile');
+    };
+
+    const showProfileIcon = internalUserPaths.some(path => location.pathname.startsWith(path));
 
   return (
-    // ... (rest of the Navbar component JSX)
     <nav className="navbar">
       <div className="logo">
         <img 
@@ -58,7 +57,6 @@ const Navbar = () => {
       </ul>
 
       <div className="nav-actions">
-        {/* The updated logic will run on this button click */}
         <button className="book-btn" onClick={handleBookNow}>
           Book Now
         </button>

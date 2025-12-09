@@ -6,7 +6,6 @@ const ConfirmationPage = ({ bookingDetails }) => {
     const navigate = useNavigate();
     const location = useLocation();
 
-    // Use mock data if no state is passed (for initial rendering)
     const mockDetails = {
         bookingId: "PETSY-20251207-42",
         checkInDate: "2025-11-11",
@@ -17,7 +16,6 @@ const ConfirmationPage = ({ bookingDetails }) => {
         pets: ["Buster (Dog)", "Mittens (Cat)"]
     };
 
-    // Attempt to use passed state, otherwise use mock details
     const details = location.state?.booking || mockDetails;
 
     const formatDate = (dateString) => {

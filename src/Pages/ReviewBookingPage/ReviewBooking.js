@@ -25,14 +25,15 @@ const ALL_SERVICES = [
 
 const ReviewBooking = ({ 
     selectedRoomId, 
-    selectedServiceIds, 
+    selectedServiceIds = [], 
     checkInDate, 
     checkOutDate, 
-    pets,
+    pets = [],
     customerName = "John Doe",
     customerEmail = "johndoe@gmail.com",
     customerContact = "0912 456 7890",
-    customerAddress = "Cebu City"
+    customerAddress = "Cebu City",
+    onBack
 }) => {
     const navigate = useNavigate();
     
@@ -202,7 +203,9 @@ const ReviewBooking = ({
                         <button onClick={handleCancelBooking} className="cancel-btn">
                             Cancel Booking
                         </button>
-                        <button onClick={() => navigate(-1)} className="nav-btn back-btn-review">Back</button>
+                        <button onClick={onBack} className="nav-btn back-btn-review">
+                            Back to Pets
+                        </button>
                     </div>
                 </div>
 
