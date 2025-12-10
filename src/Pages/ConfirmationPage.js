@@ -6,19 +6,19 @@ const ConfirmationPage = ({ bookingDetails }) => {
     const navigate = useNavigate();
     const location = useLocation();
 
-    // Use mock data if no state is passed (for initial rendering)
-    const mockDetails = {
-        bookingId: "PETSY-20251207-42",
-        checkInDate: "2025-11-11",
-        checkOutDate: "2025-11-25",
-        room: "Deluxe Suite",
-        totalPrice: 20500,
-        customerName: "John Doe",
-        pets: ["Buster (Dog)", "Mittens (Cat)"]
+    const details = location.state?.booking;
+
+    const fallbackDetails = {
+        bookingId: "N/A",
+        checkInDate: null,
+        checkOutDate: null,
+        room: "N/A",
+        totalPrice: 0,
+        customerName: "Unknown Guest",
+        pets: ["No pets listed"]
     };
 
-    // Attempt to use passed state, otherwise use mock details
-    const details = location.state?.booking || mockDetails;
+    const finalDetails = details || fallbackDetails;
 
     const formatDate = (dateString) => {
         if (!dateString) return 'N/A';
@@ -26,10 +26,31 @@ const ConfirmationPage = ({ bookingDetails }) => {
         return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
     };
 
+    if (!details) {
+        return (
+            
+            <div className="confirmation-page">
+                <div className="confirmation-card error-card">
+                    <h1 className="success-title" style={{ color: 'red' }}>Booking Data Missing! ⚠️</h1>
+                    <p className="success-message">
+                        This page was accessed without valid reservation data. Please start a new booking or check your dashboard.
+                    </p>
+                    <div className="confirmation-actions centered-action">
+                        <button 
+                            onClick={() => navigate('/dashboard')} 
+                            className="action-btn dashboard-btn full-width-btn"
+                        >
+                            Go to Dashboard
+                        </button>
+                    </div>
+                </div>
+            </div>
+        );
+    }
+
     return (
         <div className="confirmation-page">
             <div className="confirmation-card">
-                
                 <div className="confirmation-header">
                     <h1 className="success-title">Booking Confirmed! 🎉</h1>
                     <p className="success-message">
@@ -42,37 +63,37 @@ const ConfirmationPage = ({ bookingDetails }) => {
                     
                     <div className="detail-group">
                         <span className="detail-label">Booking ID:</span>
-                        <span className="detail-value bold-value">{details.bookingId}</span>
+                        <span className="detail-value bold-value">{finalDetails.bookingId}</span>
                     </div>
 
                     <div className="detail-group">
                         <span className="detail-label">Guest Name:</span>
-                        <span className="detail-value">{details.customerName}</span>
+                        <span className="detail-value">{finalDetails.customerName}</span>
                     </div>
 
                     <div className="detail-group">
                         <span className="detail-label">Check-in:</span>
-                        <span className="detail-value">{formatDate(details.checkInDate)}</span>
+                        <span className="detail-value">{formatDate(finalDetails.checkInDate)}</span>
                     </div>
                     
                     <div className="detail-group">
                         <span className="detail-label">Check-out:</span>
-                        <span className="detail-value">{formatDate(details.checkOutDate)}</span>
+                        <span className="detail-value">{formatDate(finalDetails.checkOutDate)}</span>
                     </div>
                     
                     <div className="detail-group">
                         <span className="detail-label">Room Type:</span>
-                        <span className="detail-value">{details.room}</span>
+                        <span className="detail-value">{finalDetails.room}</span>
                     </div>
                     
                     <div className="detail-group">
                         <span className="detail-label">Pets:</span>
-                        <span className="detail-value">{details.pets.join(', ')}</span>
+                        <span className="detail-value">{finalDetails.pets.join(', ')}</span>
                     </div>
 
                     <div className="total-price-line">
                         <span className="total-label">Total Amount:</span>
-                        <span className="total-value">₱{details.totalPrice.toLocaleString()}</span>
+                        <span className="total-value">₱{finalDetails.totalPrice.toLocaleString()}</span>
                     </div>
                 </div>
 

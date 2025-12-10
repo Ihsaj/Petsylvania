@@ -11,6 +11,7 @@ import MainLayout from './Pages/MainLayout';
 import ProfilePage from './Pages/ProfilePage';
 import PetProfilePage from './Pages/PetProfilePage';
 import ConfirmationPage from './Pages/ConfirmationPage';
+import ReviewBooking from './Pages/ReviewBookingPage/ReviewBooking';
 
 function AppRoutes() {
   return (
@@ -22,11 +23,12 @@ function AppRoutes() {
         <Route path="/testimonials" element={<TestimonialsPage />} />
         <Route path="/contact" element={<ContactUsPage />} />
         <Route path="/register" element={<Register />} />  
-        <Route path="/Dashboard" element={<DashboardPage />} />
+        <Route path="/dashboard" element={<DashboardPage />} />
         <Route path="/mainlayout-roomservices" element={<MainLayout />} />
         <Route path="/profile" element={<ProfilePage />} />
         <Route path="/petprofile" element={<PetProfilePage />} />
         <Route path="/confirmation" element={<ConfirmationPage />} />
+        <Route path="/review-booking" element={<ReviewBooking />} />
       </Routes>
     </Router>
   );

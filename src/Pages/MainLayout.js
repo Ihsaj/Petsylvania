@@ -24,9 +24,7 @@ function MainLayout() {
   const savePetsToBackend = async () => {
       try {
           console.log("Auto-saving pets to database...");
-          // We loop through the pets array and save each one
           for (const pet of pets) {
-              // Simple check to ensure we don't save empty forms
               if (pet.name && pet.type) {
                   await fetch('http://localhost:8080/api/booking-pets', {
                       method: 'POST',
@@ -46,13 +44,12 @@ function MainLayout() {
 
   // --- NAVIGATION LOGIC ---
   const handleNext = async () => {
-    // NEW LOGIC: If we are leaving the 'Pets' step (Index 3), save first!
+    // Save pets if leaving step 3
     if (currentStep === 3) {
         const success = await savePetsToBackend();
-        if (!success) return; // Stop navigation if save fails
+        if (!success) return; 
     }
 
-    // Standard Navigation
     if (currentStep < steps.length - 1) {
       setCurrentStep(currentStep + 1);
     } else {
@@ -83,6 +80,7 @@ function MainLayout() {
 
   // --- RENDER STEP ---
   const renderStep = () => {
+    // ERROR FIXED: Removed the "customerInfo" line that was causing a crash
     switch (currentStep) {
       case 0: return <Room selectedRoom={selectedRoom} setSelectedRoom={setSelectedRoom} />;
       case 1: return <Services selectedServices={selectedServices} setSelectedServices={setSelectedServices} />;

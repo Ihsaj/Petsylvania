@@ -3,30 +3,25 @@ import './Services.css';
 import ServiceCard from '../../Components/ServiceCardCom/ServiceCard';
 
 const Services = ({ selectedServices, setSelectedServices }) => {
-  // 1. Initialize with an empty array to prevent crashes
   const [services, setServices] = useState([]);
 
   useEffect(() => {
     fetch('http://localhost:8080/api/services')
       .then(res => {
-        // If the server returns an error (403, 404, 500), throw an error
-        if (!res.ok) {
-            throw new Error(`Server returned status: ${res.status}`);
-        }
+        if (!res.ok) throw new Error(`Server status: ${res.status}`);
         return res.json();
       })
       .then(data => {
-        // 2. SAFETY CHECK: Is the data actually an Array?
         if (Array.isArray(data)) {
             console.log("Services loaded:", data);
             setServices(data);
         } else {
-            console.error("Error: Backend returned an Object instead of a List:", data);
-            setServices([]); // Keep it empty so .map() doesn't crash
+            console.error("Backend returned weird data:", data);
+            setServices([]); 
         }
       })
       .catch(err => {
-          console.error("Fetch failed:", err);
+          console.error("Failed to fetch services:", err);
           setServices([]); 
       });
   }, []);
@@ -39,6 +34,7 @@ const Services = ({ selectedServices, setSelectedServices }) => {
     );
   };
 
+  // Helper function must be INSIDE the component
   const getIcon = (name) => {
       const n = name ? name.toLowerCase() : "";
       if(n.includes("groom")) return '✂️';
@@ -54,7 +50,6 @@ const Services = ({ selectedServices, setSelectedServices }) => {
       <p className="page-subtitle">Choose extra services</p>
       
       <div className="services-grid">
-        {/* 3. FINAL GUARD: Only run .map if it is an array */}
         {Array.isArray(services) && services.length > 0 ? (
             services.map(service => (
             <ServiceCard
