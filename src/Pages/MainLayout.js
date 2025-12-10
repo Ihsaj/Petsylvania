@@ -6,7 +6,9 @@ import Room from './RoomPage/Room';
 import Services from './ServicesPage/Services';
 import DateComponent from './DatePage/Date'; 
 import Pets from './PetsPage/Pets';
+import ReviewBooking from './ReviewBookingPage/ReviewBooking';
 import { useNavigate } from 'react-router-dom';
+
 
 function MainLayout() {
   const [currentStep, setCurrentStep] = useState(0);
@@ -20,20 +22,34 @@ function MainLayout() {
   const [checkOut, setCheckOut] = useState(''); 
   const [pets, setPets] = useState([{ name: '', type: '', breed: '', age: '' }]);
 
+  const [savedPetIds, setSavedPetIds] = useState([]);
+
+  // --- CUSTOMER DATA (Read from localStorage on load) ---
+  const getCustomerData = () => {
+    const userData = localStorage.getItem('user');
+    return userData ? JSON.parse(userData) : null;
+  };
+  const customer = getCustomerData();
+  const customerId = customer ? customer.customerId : null;
+
   // --- HELPER: Save Pets to Backend ---
   const savePetsToBackend = async () => {
       try {
           console.log("Auto-saving pets to database...");
+          const petIds = [];
           for (const pet of pets) {
               if (pet.name && pet.type) {
-                  await fetch('http://localhost:8080/api/booking-pets', {
+                  const response = await fetch('http://localhost:8080/api/booking-pets', {
                       method: 'POST',
                       headers: { 'Content-Type': 'application/json' },
                       body: JSON.stringify(pet)
                   });
+                  const savedPet = await response.json();
+                  petIds.push(savedPet.bookingPetId);
               }
           }
-          console.log("All pets saved successfully!");
+          console.log("All pets saved successfully! IDs:", petIds);
+          setSavedPetIds(petIds);
           return true;
       } catch (error) {
           console.error("Failed to save pets:", error);
@@ -42,9 +58,49 @@ function MainLayout() {
       }
   };
 
+  const handleConfirmBooking = async () => {
+    if (!customer || !customerId) {
+        alert("You must be logged in to confirm a booking.");
+        navigate("/login");
+        return;
+    }
+
+    const reservationPayload = {
+        customerId: customerId, 
+        checkInDate: checkIn, 
+        checkOutDate: checkOut,
+        roomId: selectedRoom, 
+        serviceIds: selectedServices, 
+        bookingPetIds: savedPetIds, 
+        status: "Pending",
+        totalPrice: 0, 
+    };
+
+    console.log("Final Reservation Payload:", reservationPayload);
+
+    try {
+        const response = await fetch(`http://localhost:8080/api/reservations`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(reservationPayload),
+        });
+
+        if (response.ok) {
+            const finalReservation = await response.json();
+            alert(`Booking Confirmed! Your Reservation ID is: ${finalReservation.reservationId}`);
+            navigate('/confirmation', { state: { reservationId: finalReservation.reservationId } }); 
+        } else {
+            const errorText = await response.text();
+            alert(`Booking failed: ${errorText || 'Server error.'}`);
+        }
+    } catch (error) {
+        console.error("Error creating final reservation:", error);
+        alert("Network error. Could not finalize booking.");
+    }
+  };
+
   // --- NAVIGATION LOGIC ---
   const handleNext = async () => {
-    // Save pets if leaving step 3
     if (currentStep === 3) {
         const success = await savePetsToBackend();
         if (!success) return; 
@@ -80,13 +136,28 @@ function MainLayout() {
 
   // --- RENDER STEP ---
   const renderStep = () => {
-    // ERROR FIXED: Removed the "customerInfo" line that was causing a crash
     switch (currentStep) {
       case 0: return <Room selectedRoom={selectedRoom} setSelectedRoom={setSelectedRoom} />;
       case 1: return <Services selectedServices={selectedServices} setSelectedServices={setSelectedServices} />;
       case 2: return <DateComponent checkIn={checkIn} setCheckIn={setCheckIn} checkOut={checkOut} setCheckOut={setCheckOut} />;
       case 3: return <Pets pets={pets} setPets={setPets} />;
-      case 4: return <div style={{textAlign: 'center', padding: '50px'}}><h2>Review Page (Teammate Assigned)</h2></div>;
+      case 4: return (
+        <ReviewBooking
+            selectedRoomId={selectedRoom}
+            selectedServiceIds={selectedServices}
+            checkInDate={checkIn}
+            checkOutDate={checkOut}
+            pets={pets.filter(p => p.name && p.type)} 
+
+            customerName={`${customer?.firstName || 'N/A'} ${customer?.lastName || ''}`}
+            customerEmail={customer?.email || 'N/A'}
+            customerContact={customer?.contactNumber || 'N/A'}
+            customerAddress={customer?.address || 'N/A'}
+
+            onConfirm={handleConfirmBooking}
+            onBack={handleBack} 
+          />
+        );
       default: return null;
     }
   };
