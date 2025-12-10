@@ -1,7 +1,11 @@
 import React from 'react';
 import './Date.css';
 
-const Date = ({ checkIn, setCheckIn, checkOut, setCheckOut }) => {
+const DateComponent = ({ checkIn, setCheckIn, checkOut, setCheckOut }) => {
+  
+  // Get today's date to prevent booking in the past
+  const today = new Date().toISOString().split('T')[0];
+
   return (
     <div className="date-page">
       <h1 className="page-title">Date</h1>
@@ -12,6 +16,7 @@ const Date = ({ checkIn, setCheckIn, checkOut, setCheckOut }) => {
           <label className="form-label">Check-in Date</label>
           <input
             type="date"
+            min={today}
             value={checkIn}
             onChange={(e) => setCheckIn(e.target.value)}
             className="form-input"
@@ -22,6 +27,7 @@ const Date = ({ checkIn, setCheckIn, checkOut, setCheckOut }) => {
           <label className="form-label">Check-out Date</label>
           <input
             type="date"
+            min={checkIn || today} // Check-out cannot be before check-in
             value={checkOut}
             onChange={(e) => setCheckOut(e.target.value)}
             className="form-input"
@@ -32,4 +38,4 @@ const Date = ({ checkIn, setCheckIn, checkOut, setCheckOut }) => {
   );
 };
 
-export default Date;
+export default DateComponent;

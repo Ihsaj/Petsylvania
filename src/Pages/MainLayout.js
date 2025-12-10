@@ -6,113 +6,92 @@ import Room from './RoomPage/Room';
 import Services from './ServicesPage/Services';
 import DateComponent from './DatePage/Date'; 
 import Pets from './PetsPage/Pets';
-import ReviewBooking from './ReviewBookingPage/ReviewBooking.js';
 import { useNavigate } from 'react-router-dom';
-
-const ALL_ROOMS = [
-    { id: 1, title: 'Standard Suite', price: 500 },
-    { id: 2, title: 'Deluxe Suite', price: 1000 },
-    { id: 3, title: 'Luxury Suite', price: 1500 },
-];
-const ALL_SERVICES = [
-    { id: 1, title: 'Grooming', price: 500, icon: '✂️' },
-    { id: 2, title: 'Pet Spa', price: 500, icon: '🛁' },
-    { id: 3, title: 'Training Session', price: 500, icon: '🎯' },
-    { id: 4, title: 'Playtime', price: 500, icon: '🎾' },
-    { id: 5, title: 'Medication', price: 500, icon: '💊' },
-];
 
 function MainLayout() {
   const [currentStep, setCurrentStep] = useState(0);
-  const [selectedRoom, setSelectedRoom] = useState(null);
-  const [selectedServices, setSelectedServices] = useState([]);
-  const [checkIn, setCheckIn] = useState('');
-  const [checkOut, setCheckOut] = useState('');
-  const [pets, setPets] = useState([{ name: '', type: '', breed: '', age: '' }]);
-
   const navigate = useNavigate();
   const steps = ['Room', 'Service', 'Date', 'Pets', 'Review'];
 
-  const handleNext = async () => {
-    if (currentStep === steps.length - 1) {
-      const roomDetails = ALL_ROOMS.find(r => r.id === selectedRoom);
-      const roomPrice = roomDetails ? roomDetails.price : 0;
-      
-      const servicesTotal = ALL_SERVICES.filter(s => selectedServices.includes(s.id))
-                                       .reduce((sum, service) => sum + service.price, 0);
-      
-      const totalDurationInDays = (checkIn && checkOut) 
-        ? Math.max(1, Math.ceil((new Date(checkOut) - new Date(checkIn)) / (1000 * 60 * 60 * 24)))
-        : 1;
-        
-      const totalPrice = (roomPrice * totalDurationInDays) + servicesTotal;
+  // --- STATE ---
+  const [selectedRoom, setSelectedRoom] = useState(null); 
+  const [selectedServices, setSelectedServices] = useState([]); 
+  const [checkIn, setCheckIn] = useState(''); 
+  const [checkOut, setCheckOut] = useState(''); 
+  const [pets, setPets] = useState([{ name: '', type: '', breed: '', age: '' }]);
 
-      const finalBookingData = {
-        bookingId: "PETSY-" + Date.now().toString().slice(-6), 
-        checkInDate: checkIn,
-        checkOutDate: checkOut,
-        room: roomDetails ? roomDetails.title : 'N/A',
-        totalPrice: totalPrice,
-        customerName: "John Doe", 
-        pets: pets.filter(p => p.name).map(p => `${p.name} (${p.type})`)
-      };
-
-      navigate('/confirmation', { state: { booking: finalBookingData } });
-      return;
-    }
-    
-    setCurrentStep(currentStep + 1);
+  // --- HELPER: Save Pets to Backend ---
+  const savePetsToBackend = async () => {
+      try {
+          console.log("Auto-saving pets to database...");
+          // We loop through the pets array and save each one
+          for (const pet of pets) {
+              // Simple check to ensure we don't save empty forms
+              if (pet.name && pet.type) {
+                  await fetch('http://localhost:8080/api/booking-pets', {
+                      method: 'POST',
+                      headers: { 'Content-Type': 'application/json' },
+                      body: JSON.stringify(pet)
+                  });
+              }
+          }
+          console.log("All pets saved successfully!");
+          return true;
+      } catch (error) {
+          console.error("Failed to save pets:", error);
+          alert("Error saving pets. Please try again.");
+          return false;
+      }
   };
 
-  const handleBack = () => currentStep > 0 && setCurrentStep(currentStep - 1);
+  // --- NAVIGATION LOGIC ---
+  const handleNext = async () => {
+    // NEW LOGIC: If we are leaving the 'Pets' step (Index 3), save first!
+    if (currentStep === 3) {
+        const success = await savePetsToBackend();
+        if (!success) return; // Stop navigation if save fails
+    }
 
+    // Standard Navigation
+    if (currentStep < steps.length - 1) {
+      setCurrentStep(currentStep + 1);
+    } else {
+        console.log("Ready for Review Page");
+    }
+  };
+
+  const handleBack = () => {
+    if (currentStep > 0) setCurrentStep(currentStep - 1);
+  };
+
+  // --- VALIDATION ---
   const canProceed = () => {
     const datesAreValid = () => {
         if (!checkIn || !checkOut) return false;
-        const checkInDate = new window.Date(checkIn);
-        const checkOutDate = new window.Date(checkOut);
-        return checkOutDate > checkInDate;
+        return new Date(checkOut) > new Date(checkIn);
     };
-    const petsAreValid = () => {
-        return pets.length > 0 && pets.every(pet => pet.name && pet.type);
-    };
+    const petsAreValid = () => pets.length > 0 && pets.every(pet => pet.name && pet.type);
 
     switch (currentStep) {
-      case 0: return selectedRoom !== null;
-      case 1: return true;
+      case 0: return selectedRoom !== null; 
+      case 1: return true;                  
       case 2: return checkIn && checkOut && datesAreValid();
       case 3: return petsAreValid();
-      case 4: return true; 
-      default: return false;
+      default: return true;
     }
   };
 
+  // --- RENDER STEP ---
   const renderStep = () => {
     switch (currentStep) {
       case 0: return <Room selectedRoom={selectedRoom} setSelectedRoom={setSelectedRoom} />;
       case 1: return <Services selectedServices={selectedServices} setSelectedServices={setSelectedServices} />;
       case 2: return <DateComponent checkIn={checkIn} setCheckIn={setCheckIn} checkOut={checkOut} setCheckOut={setCheckOut} />;
       case 3: return <Pets pets={pets} setPets={setPets} />;
-      case 4: return (
-          <ReviewBooking
-            selectedRoomId={selectedRoom}
-            selectedServiceIds={selectedServices}
-            checkInDate={checkIn}
-            checkOutDate={checkOut}
-            pets={pets}
-            customerName={"John Doe"}
-            customerEmail={"john.doe@example.com"}
-            customerContact={"0912 456 7890"}
-            customerAddress={"Cebu City"}
-          />
-        );
+      case 4: return <div style={{textAlign: 'center', padding: '50px'}}><h2>Review Page (Teammate Assigned)</h2></div>;
       default: return null;
     }
   };
-  
-  const nextButtonText = currentStep === steps.length - 1 ? 'Confirm Booking' : 'Next';
-  
-  const showGenericNavigation = currentStep < steps.length - 1; 
 
   return (
     <div className="mainlayout">
@@ -125,23 +104,21 @@ function MainLayout() {
         {renderStep()}
       </div>
 
-      {showGenericNavigation && (
-        <div className="navigation-buttons">
-            {currentStep > 0 && (
-                <button onClick={handleBack} className="nav-btn back-btn">Back</button>
-            )}
-            
-            <div className="next-button-wrapper">
-                <button 
-                    onClick={handleNext} 
-                    disabled={!canProceed()} 
-                    className="nav-btn next-btn"
-                >
-                    {nextButtonText}
-                </button>
-            </div>
-        </div>
-      )}
+      <div className="navigation-buttons">
+          {currentStep > 0 && (
+              <button onClick={handleBack} className="nav-btn back-btn">Back</button>
+          )}
+          
+          <div className="next-button-wrapper">
+              <button 
+                  onClick={handleNext} 
+                  disabled={!canProceed()} 
+                  className="nav-btn next-btn"
+              >
+                  {currentStep === steps.length - 1 ? 'Finish' : 'Next'}
+              </button>
+          </div>
+      </div>
     </div>
   );
 }
